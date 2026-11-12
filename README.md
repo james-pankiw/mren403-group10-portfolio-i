@@ -8,23 +8,24 @@ Supervisors: Jonathan Gammell, Melissa Greeff.
 | Folder | Contents |
 | --- | --- |
 | `requirements/` | Problem definition |
-| `decisions/` | Validation plan, roles, rail trade notes, Ahrvin band decision, meeting notes |
-| `calculations/` | Ahrvin: `Launcher Band Calculations.docx` |
-| `design/mechanical/` | Darcy rail Word docs; actuator notes; CAD exports |
-| `design/electrical/` | (to fill) |
-| `design/software/` | (to fill) |
+| `decisions/` | Validation plan, roles, trades, meeting notes |
+| `calculations/` | Band / energy sizing calculations |
+| `design/` | Subsystem design packages (see below) |
 | `code/` | Pitch sim and gate demo |
 | `experiments/` | Wave / pitch simulation write-ups |
 | `data/` | Raw logs when available |
-| `references/` | Fighter page notes, PRO 7 sheet |
+| `references/` | Fighter and PRO 7 sources |
 | `figures/` | Key plots |
 | `deliverables/` | Proposal PDF |
 
-## Darcy Ryan — Word docs (git `dcr1313`, 2026-11-12)
+## Design (project-shaped)
 
-| File | In this tree | Point |
+| Folder | Subsystem | What’s here |
 | --- | --- | --- |
-| `Prototype Rails.docx` | `design/mechanical/` | Acrylic / PLA / **Sasco strut** trade → strut + trolley for **prototype** |
-| `Full Sized Rail.docx` | `design/mechanical/` | CNC **stainless vs aluminum** → chooses **stainless** for full-size |
-
-These match the validation split: strut is the prototype bed; full-size material is a separate design decision.
+| `design/rails-structure/` | Structure / rails | Prototype strut trade; full-size rail material; rail review slides |
+| `design/carriage-release/` | Carriage & gripper | (to fill as CAD / notes land) |
+| `design/launch-energy/` | Launch energy | Pointers to band calc/decision docs |
+| `design/pitch-gate/` | Pitch gate | Pointers to `experiments/` and `code/` |
+| `design/pitch-stabilization/` | Pitch axis | Actuator trades and sizing |
+| `design/boat-mount/` | Boat mount | Design-only (not prototype-tested) |
+| `design/assembly-cad/` | Full assembly | SolidWorks exports |
