@@ -1,0 +1,12 @@
+This section contains 4 main peaces of documentatin 
+1. UAV Launch Acutator values, 
+- math deriving equations for required force, required distance and required speed of linear actuators and torque values for motors. 
+  - All equations are left with varible values to allow for easy calculation of differing rail weight and lenghts, payload weights, acutator placement, and required reaction time. 
+2. actuatorValues.py 
+- used for easy calcuation of all required values derived in UAV Lauch actuator values, input the place holder values run the code and it will give all required actuator and motor specs 
+3. Actuator Pros Cons 
+- Looks at differing types of actuators and motor combinations pros and cons 
+- Used as reference in "Final Part Selection" to determine the needed motor and actuators for both the Hand Throw Fighter UAV and the test example case
+4. Final Part Selection 
+- Uses preview 3 documents to determin the final motor and linear actuator to be used in full scale and scaled down test model. 
+

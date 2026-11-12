@@ -1,0 +1,4 @@
+﻿# Ignore OS junk only — this repo is the portfolio snapshot
+.DS_Store
+Thumbs.db
+Desktop.ini

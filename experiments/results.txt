@@ -1,0 +1,8 @@
+Boat length 7.0 m. Deep water. Head seas. Each row is a separate assumed sea.
+sea                       H m    T s      L m  pitch deg  truth 0.3  err 0.3  truth 0.5  err 0.5
+Small wind wave          0.30    3.0    14.05       2.46       1.99     0.47       1.23     1.23
+Moderate wind wave       0.50    4.0    24.98       3.16       2.81     0.34       2.23     0.92
+Short chop               0.50    1.0     1.56       4.09      -1.26     5.35      -4.09     8.17
+
+truth 0.3 / truth 0.5: pitch degrees after a release at the crest.
+err: constant-rate prediction minus truth. The rate model holds the crest angle.
