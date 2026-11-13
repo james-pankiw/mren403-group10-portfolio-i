@@ -1,5 +1,9 @@
+
 \documentclass[11pt]{article}
 
+% ------------------------------------------------------------
+% Packages
+% ------------------------------------------------------------
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
@@ -14,22 +18,39 @@
 \usepackage{graphicx}
 \usepackage{float}
 
+% ------------------------------------------------------------
+% Hyperlink setup
+% ------------------------------------------------------------
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
     urlcolor=blue,
     citecolor=blue,
-    pdftitle={UAV Launch System Actuator Component Selection}
+    pdftitle={UAV Launch System Actuator Component Selection},
+    pdfauthor={}
 }
 
-\newcommand{\ValuesDoc}{\texttt{actuator\_force\_requirements.tex} / \texttt{actuatorValues.py}}
-\newcommand{\OptionsDoc}{\texttt{actuator\_part\_comparison.tex}}
+% Local companion PDFs should be kept in the same folder as this
+% LaTeX file / compiled PDF. Some PDF viewers restrict run: links.
+\newcommand{\ValuesDoc}{\href{run:UAV_launch_Actuator_values.pdf}{UAV Launch Actuator Values}}
+\newcommand{\OptionsDoc}{\href{run:Actuator_Pros_Cons.pdf}{Actuator Pros and Cons}}
+
+% Fill-in area for design explanations.
+\newcommand{\responsebox}[2][1.0cm]{%
+    \par\noindent\textbf{#2}\par
+    \vspace{0.25em}\noindent\rule{\textwidth}{0.4pt}\par
+    \vspace{#1}\noindent\rule{\textwidth}{0.4pt}\par
+    \vspace{0.65em}
+}
 
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.55em}
 \renewcommand{\arraystretch}{1.18}
 
+% ------------------------------------------------------------
+% Header / footer
+% ------------------------------------------------------------
 \pagestyle{fancy}
 \fancyhf{}
 \lhead{UAV Launch System}
@@ -37,6 +58,9 @@
 \cfoot{\thepage}
 \setlength{\headheight}{14pt}
 
+% ------------------------------------------------------------
+% Document
+% ------------------------------------------------------------
 \begin{document}
 \pagenumbering{roman}
 
@@ -62,44 +86,71 @@
 \clearpage
 \pagenumbering{arabic}
 
+% ------------------------------------------------------------
 \section{Purpose and Design Approach}
+% ------------------------------------------------------------
 
-Selected actuator hardware for the full-scale launcher and the scaled test bed.
-Sizing equations live in \ValuesDoc. Actuator-type trade: \OptionsDoc.
+This document records the selected actuator components for the UAV launch
+system, including the full-scale assembly and the scaled test assembly. It
+summarizes the assumed system dimensions and masses, the required actuator
+performance obtained from the \texttt{actuatorValues.py} file, the selected
+motor and Acme lead-screw components, and the reasoning behind each selection.
 
-Early layout used two linear actuators (one per rail). One motor driving both
-rails meets the torque/RPM need and avoids differential motion between rails.
+The calculations and derivations are not repeated here. The equations,
+free-body diagram, assumptions, and original sizing calculations are provided
+in the companion document ``UAV Launch Actuator Values''. The broader
+comparison of actuator technologies and their advantages and disadvantages
+is provided in ``Actuator Pros and Cons''.
 
-Base-mounted motor + gearbox was dropped for this project: longer rails make
-that path more expensive than a lead-screw actuator outboard on the rail.
+The original design assumed the use of two linear actuators
+to move the two desired rails individually. This was intended to reduce the
+required force per actuator. However, to achieve the required motor RPM,
+the available servo motors meet the requirements for a single actuator moving
+both rails. This also reduces the problem of potentially actuating at
+different rates, which could cause torque on the launcher and plane.
+
+One possible option at this scale would be to use the selected motors at the
+base, accompanied by a reduction gearbox to achieve the required torque.
+However, as the test model is a proof of concept, and increasing the scale
+would require longer rails, this approach would quickly become more expensive
+and difficult to implement than using linear actuators near the end of the
+rails. For this reason, it was not considered for this project.
 
 \subsection{Selected Actuator Architecture}
 
-Both builds use a motor-driven Acme lead screw. Acme was chosen over a ball
-screw: required torque is low enough that the efficiency gain is not needed.
+Both configurations use a motor-driven Acme lead screw to convert rotary
+motion into linear motion. The lead screw was chosen instead of ball screws
+because the required motor torque was not high enough to justify the need
+for a higher efficiency coefficient to meet the required force.
 
-The nut attaches to the moving structure; the screw is driven by an integrated
-servo (encoder + drive in the motor). No external stepper driver.
+The lead-screw nut is attached to the moving structure, while the screw is
+driven by an integrated servo motor. Motor control and powering are not
+considered in this documentation.
+
+The selected StepperOnline motors are integrated servo units with an internal
+drive and encoder. A separate external motor driver is therefore not intended
+for this arrangement.
 
 \subsection{Selection Criteria}
 
+The principal selection criteria are:
 \begin{itemize}[leftmargin=1.5em]
-    \item Motor torque at the required screw speed
-    \item Linear thrust and travel speed
-    \item Matching screw / nut thread
-    \item Practical motor-to-screw coupling
-    \item Build / assembly / maintenance cost
+    \item Sufficient motor torque at the required screw speed.
+    \item Sufficient linear thrust and travel speed for the required motion.
+    \item Compatibility between the screw and nut thread.
+    \item A practical mechanical connection between the motor shaft and screw.
+    \item Practicality of fabrication, assembly, testing, and maintenance.
 \end{itemize}
 
-\section{Geometry and Mass Assumptions}
-
-Payload CM distance from the pivot is $r_{m_2}=L_1-L_2/2$ (UAV on the outboard
-rail). Parallel-axis inertia about the pivot is used. Fighter MTOW is under
-$7\,\mathrm{kg}$; full-scale payload mass here is $6\,\mathrm{kg}$.
-
+% ------------------------------------------------------------
 \section{Full-Scale Actuator System}
+% ------------------------------------------------------------
 
 \subsection{Assumed System Parameters}
+
+The following values are the full-scale system assumptions supplied for the
+actuator sizing. The value of the beam mass is shown both as entered and as a
+total mass.
 
 \begin{table}[h!]
 \centering
@@ -108,42 +159,55 @@ $7\,\mathrm{kg}$; full-scale payload mass here is $6\,\mathrm{kg}$.
 \textbf{Parameter} & \textbf{Description} & \textbf{Value} \\
 \midrule
 $L_1$ & Beam length & $2.0\ \mathrm{m}$ \\
-$L_2$ & Payload length along rail & $1.5\ \mathrm{m}$ \\
-$m_1$ & Beam mass & $3.34\ \mathrm{kg}$ \\
-$m_2$ & Payload mass & $6.0\ \mathrm{kg}$ \\
-$r_{m_2}$ & Payload CM from pivot & $1.25\ \mathrm{m}$ \\
-$r_f$ & Actuator attach from pivot & $1.75\ \mathrm{m}$ \\
-$\Delta\theta$ & Angular travel & $10^\circ$ \\
-$T$ & Motion time & $0.5\ \mathrm{s}$ \\
-$L_s$ & Screw lead (selected hardware) & $0.0127\ \mathrm{m/rev}$ ($0.5\ \mathrm{in}$) \\
-$\eta$ & Acme efficiency (assumed) & $0.60$ \\
+$L_2$ & Attached-object length & $1.5\ \mathrm{m}$ \\
+$m_1$ & Beam mass, entered as & $3.34\ \mathrm{kg}$ \\
+$m_2$ & Attached-object mass & $11.0\ \mathrm{kg}$ \\
+$r_f$ & Actuator attachment distance from pivot & $1.75\ \mathrm{m}$ \\
+$\Delta\theta$ & Required angular displacement & $10^\circ$ \\
+$T$ & Desired motion time & $0.5\ \mathrm{s}$ \\
+$g$ & Gravitational acceleration & $9.81\ \mathrm{m/s^2}$ \\
+$L_s$ & Lead used in the original sizing calculation & $0.012\ \mathrm{m/rev}$ \\
+$\eta$ & Assumed screw efficiency in the original sizing calculation & $0.60$ \\
 \bottomrule
 \end{tabularx}
 \caption{Full-scale system assumptions.}
 \end{table}
 
+The values for attached-object length and mass are taken from the
+MakeFlyEasy Fighter Hand Throw specifications. The values for beam length,
+required angular displacement, and desired motion time were taken from the
+problem statement. Gravity and assumed screw efficiency were treated as
+constants.
+
+The actuator attachment distance and lead used were initially arbitrary,
+then varied to find a position and lead that provided suitable values for
+motor selection, e.g., a balance between required RPM and torque. The values
+shown were ultimately those that best fit the motor capabilities.
+
+\newpage
+
 \subsection{Required Actuator Performance}
+
+The following results are transcribed from the supplied full-scale sizing
+calculation. They are retained here as the original calculated requirements.
 
 \begin{table}[h!]
 \centering
 \begin{tabularx}{\textwidth}{@{}Y l@{}}
 \toprule
-\textbf{Calculated quantity} & \textbf{Result} \\
+\textbf{Calculated quantity} & \textbf{Original result} \\
 \midrule
 Angular acceleration & $2.793\ \mathrm{rad/s^2}$ \\
-Maximum actuator force & $84.6\ \mathrm{N}$ \\
-Recommended force ($2\times$ SF) & $169.3\ \mathrm{N}$ \\
-Linear travel ($r_f\sin\Delta\theta$) & $0.304\ \mathrm{m}$ \\
-Average linear speed & $0.608\ \mathrm{m/s}$ \\
-Motor torque at SF force & $0.570\ \mathrm{N\,m}$ \\
-Screw speed (average / triangular peak) & $2871\ /\ 5743\ \mathrm{RPM}$ \\
+Maximum required actuator force & $85.241\ \mathrm{N}$ \\
+Recommended actuator force (safety factor of 2.0) & $170.483\ \mathrm{N}$ \\
+Linear travel reported by the calculation & $0.2618\ \mathrm{m}$ \\
+Average linear speed reported by the calculation & $0.6109\ \mathrm{m/s}$ \\
+Motor torque reported by the calculation & $0.5427\ \mathrm{N\,m}$ \\
+Screw speed reported by the calculation & $3054.3\ \mathrm{RPM}$ \\
 \bottomrule
 \end{tabularx}
-\caption{Full-scale sizing with outboard $r_{m_2}$ and selected lead.}
+\caption{Original full-scale actuator sizing results.}
 \end{table}
-
-Peak triangular RPM exceeds the motor's $4000\ \mathrm{RPM}$ max. Use a longer
-$T$, a trapezoidal profile, or accept a slower pitch slew on the full-scale unit.
 
 \subsection{Selected Full-Scale Components}
 
@@ -153,34 +217,64 @@ $T$, a trapezoidal profile, or accept a slower pitch slew on the full-scale unit
 \toprule
 \textbf{Component} & \textbf{Selected part / relevant specification} & \textbf{Supplier link} \\
 \midrule
-Motor & StepperOnline iSV57T-180S; $180\ \mathrm{W}$, $0.6\ \mathrm{N\,m}$ rated, $3000\ \mathrm{RPM}$ rated, $20$--$50\ \mathrm{VDC}$, $8\ \mathrm{mm}$ shaft. & \href{https://www.stepperonline.ca/nema-23-integrated-easy-servo-motor-180w-3000rpm-0-6nm-84-98oz-in-20-50vdc-servo-motor-short-shaft-isv57t-180s.html}{iSV57T-180S} \\
+Motor & StepperOnline iSV57T-180S integrated servo; rated power $180\ \mathrm{W}$, rated torque $0.6\ \mathrm{N\,m}$, rated speed $3000\ \mathrm{RPM}$, input range $20$--$50\ \mathrm{VDC}$, nominal 8 mm shaft. & \href{https://www.stepperonline.ca/nema-23-integrated-easy-servo-motor-180w-3000rpm-0-6nm-84-98oz-in-20-50vdc-servo-motor-short-shaft-isv57t-180s.html}{StepperOnline iSV57T-180S} \\
 \addlinespace
-Lead screw & McMaster-Carr 98980A973; $3/8$ in--8 Stub Acme, four-start, $0.5$ in lead, $3$ ft, 304 SS. & \href{https://www.mcmaster.com/98980A973/}{98980A973} \\
+Lead screw & McMaster-Carr 98980A973; 3/8 in--8 Stub Acme, four-start, 0.5 in lead, 3 ft length, 304 stainless steel. & \href{https://www.mcmaster.com/98980A973/}{McMaster-Carr 98980A973} \\
 \addlinespace
-Lead nut & McMaster-Carr 1349K101; matching PET nut; dynamic thrust $350\ \mathrm{lbf}$. & \href{https://www.mcmaster.com/1349K101/}{1349K101} \\
+Lead nut & McMaster-Carr 1349K101; matching 3/8 in--8 Acme, four-start, 0.5 in lead, PET nut; catalog dynamic thrust rating 350 lbf. & \href{https://www.mcmaster.com/1349K101/}{McMaster-Carr 1349K101} \\
 \addlinespace
-Shaft coupler & $1/4$ in to $8\ \mathrm{mm}$ set-screw coupler; machine screw end to $1/4$ in journal. & \href{https://abra-electronics.com/robotics-actobotics-servocity/motion-en/couplers/set-screw-shaft-couplers/625182-1-4-to-8mm-set-screw-shaft-coupler-actobotics-clone.html}{Abra 625182} \\
+Shaft coupler & Abra Electronics / ServoCity listing supplied for a 1/4 in to 8 mm set-screw coupler. The screw is intended to be machined to a 1/4 in smooth journal for the coupler. & \href{https://abra-electronics.com/robotics-actobotics-servocity/motion-en/couplers/set-screw-shaft-couplers/625182-1-4-to-8mm-set-screw-shaft-coupler-actobotics-clone.html}{Abra coupler listing} \\
 \bottomrule
 \end{tabularx}
-\caption{Selected full-scale components.}
+\caption{Selected full-scale components and supplier links.}
 \end{table}
+
+\newpage
 
 \subsection{Full-Scale Motor Selection Rationale}
 
-SF torque demand is $0.57\ \mathrm{N\,m}$ vs $0.6\ \mathrm{N\,m}$ rated
-($1.1\ \mathrm{N\,m}$ peak). Average screw speed is near the $3000\ \mathrm{RPM}$
-rating; peak triangular speed is the open issue above.
+The selected motor, lead screw, and nut combination was decided upon based
+on the given values and desired functionality. The original calculation
+requires $0.3172\ \mathrm{N\,m}$ at $2618\ \mathrm{RPM}$, while the motor is
+listed at $0.6\ \mathrm{N\,m}$ rated torque and $3000\ \mathrm{RPM}$ rated
+speed, with a $1.1\ \mathrm{N\,m}$ maximum torque and $4000\ \mathrm{RPM}$
+maximum speed. These values are above what is needed according to the
+calculation, which already includes a 2X safety factor. The motor torque--speed
+curve is shown below.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\textwidth]{ISV57T-180S_Torque_Speed_Curve.pdf}
-    \caption{Torque--speed curve, StepperOnline iSV57T-180S.}
+    \includegraphics[width=0.85\textwidth]
+    {ISV57T-180S_Torque_Speed_Curve.pdf}
+    \caption{Manufacturer torque--speed curve for the selected
+    StepperOnline iSV57T-180S integrated servo motor.}
     \label{fig:full_scale_motor_torque_curve}
 \end{figure}
 
+\subsection{Full-Scale Lead Screw and Nut Rationale}
+
+The selected screw and nut are a matched 3/8 in--8 Acme pair with a four-start
+thread and a nominal lead of 0.5 in per revolution. This corresponds to
+$12.7\ \mathrm{mm/rev}$. The PET nut is catalogued with a 350 lbf dynamic
+thrust rating. These components provide the rotary-to-linear transmission
+for the full-scale actuator.
+
+\subsection{Full-Scale Coupling and Machining}
+
+The motor has a nominal 8 mm shaft. The supplied coupler link is identified as
+a 1/4 in to 8 mm coupler. The intended manufacturing approach is to machine
+the lead-screw end to a concentric 1/4 in smooth journal and secure it using
+the coupler set screw.
+
+% ------------------------------------------------------------
 \section{Scaled Test Actuator System}
+% ------------------------------------------------------------
 
 \subsection{Assumed Test-System Parameters}
+
+The scaled test model uses reduced beam and object masses and a shorter actuator
+attachment radius. The angular displacement and desired motion time remain the
+same as those specified for the full-scale system.
 
 \begin{table}[h!]
 \centering
@@ -189,38 +283,53 @@ rating; peak triangular speed is the open issue above.
 \textbf{Parameter} & \textbf{Description} & \textbf{Value} \\
 \midrule
 $L_1$ & Beam length & $1.0\ \mathrm{m}$ \\
-$L_2$ & Payload length along rail & $0.5\ \mathrm{m}$ \\
+$L_2$ & Attached-object length & $0.5\ \mathrm{m}$ \\
 $m_1$ & Beam mass & $1.67\ \mathrm{kg}$ \\
-$m_2$ & Payload mass & $5.0\ \mathrm{kg}$ \\
-$r_{m_2}$ & Payload CM from pivot & $0.75\ \mathrm{m}$ \\
-$r_f$ & Actuator attach from pivot & $0.5\ \mathrm{m}$ \\
-$\Delta\theta$ & Angular travel & $10^\circ$ \\
-$T$ & Motion time & $0.5\ \mathrm{s}$ \\
-$L_s$ & Screw lead (selected hardware) & $0.00635\ \mathrm{m/rev}$ ($0.25\ \mathrm{in}$) \\
-$\eta$ & Acme efficiency (assumed) & $0.60$ \\
+$m_2$ & Attached-object mass & $5.0\ \mathrm{kg}$ \\
+$r_f$ & Actuator attachment distance from pivot & $0.5\ \mathrm{m}$ \\
+$\Delta\theta$ & Required angular displacement & $10^\circ$ \\
+$T$ & Desired motion time & $0.5\ \mathrm{s}$ \\
+$g$ & Gravitational acceleration & $9.81\ \mathrm{m/s^2}$ \\
+$L_s$ & Lead used in the original sizing calculation & $0.006\ \mathrm{m/rev}$ \\
+$\eta$ & Assumed screw efficiency in the original sizing calculation & $0.60$ \\
 \bottomrule
 \end{tabularx}
 \caption{Scaled test-system assumptions.}
 \end{table}
 
+The values for attached-object length and mass, beam length, required angular
+displacement, and desired motion time were taken from the problem statement.
+Gravity and assumed screw efficiency were treated as constants.
+
+The actuator attachment distance and lead used were initially arbitrary,
+then varied to find a position and lead that provided suitable values for
+motor selection, e.g., a balance between required RPM and torque. The values
+shown were ultimately those that best fit the motor capabilities while also
+fitting within the testing budget.
+
+\newpage
+
 \subsection{Required Actuator Performance}
+
+The following results are transcribed from the supplied scaled-model sizing
+calculation.
 
 \begin{table}[h!]
 \centering
 \begin{tabularx}{\textwidth}{@{}Y l@{}}
 \toprule
-\textbf{Calculated quantity} & \textbf{Result} \\
+\textbf{Calculated quantity} & \textbf{Original result} \\
 \midrule
 Angular acceleration & $2.793\ \mathrm{rad/s^2}$ \\
-Maximum actuator force & $109.4\ \mathrm{N}$ \\
-Recommended force ($2\times$ SF) & $218.7\ \mathrm{N}$ \\
-Linear travel ($r_f\sin\Delta\theta$) & $0.087\ \mathrm{m}$ \\
-Average linear speed & $0.174\ \mathrm{m/s}$ \\
-Motor torque at SF force & $0.368\ \mathrm{N\,m}$ \\
-Screw speed (average / triangular peak) & $1641\ /\ 3282\ \mathrm{RPM}$ \\
+Maximum required actuator force & $46.344\ \mathrm{N}$ \\
+Recommended actuator force (safety factor of 2.0) & $92.688\ \mathrm{N}$ \\
+Linear travel reported by the calculation & $0.0873\ \mathrm{m}$ \\
+Average linear speed reported by the calculation & $0.1745\ \mathrm{m/s}$ \\
+Motor torque reported by the calculation & $0.1475\ \mathrm{N\,m}$ \\
+Screw speed reported by the calculation & $1745.3\ \mathrm{RPM}$ \\
 \bottomrule
 \end{tabularx}
-\caption{Scaled sizing with outboard $r_{m_2}$ and selected lead.}
+\caption{Original scaled-model actuator sizing results.}
 \end{table}
 
 \subsection{Selected Test-System Components}
@@ -231,83 +340,149 @@ Screw speed (average / triangular peak) & $1641\ /\ 3282\ \mathrm{RPM}$ \\
 \toprule
 \textbf{Component} & \textbf{Selected part / relevant specification} & \textbf{Supplier link} \\
 \midrule
-Motor & StepperOnline iSV57T-090; $90\ \mathrm{W}$, $0.3\ \mathrm{N\,m}$ rated, $3000\ \mathrm{RPM}$ rated, $20$--$50\ \mathrm{VDC}$, $8\ \mathrm{mm}$ shaft. & \href{https://www.stepperonline.ca/nema-23-integrated-easy-servo-motor-90w-3000rpm-0-3nm-42-49oz-in-20-50vdc-brushless-dc-servo-motor-isv57t-090.html}{iSV57T-090} \\
+Motor & StepperOnline iSV57T-090 integrated servo; rated power $90\ \mathrm{W}$, rated torque $0.3\ \mathrm{N\,m}$, rated speed $3000\ \mathrm{RPM}$, input range $20$--$50\ \mathrm{VDC}$, nominal 8 mm shaft. & \href{https://www.stepperonline.ca/nema-23-integrated-easy-servo-motor-90w-3000rpm-0-3nm-42-49oz-in-20-50vdc-brushless-dc-servo-motor-isv57t-090.html}{StepperOnline iSV57T-090} \\
 \addlinespace
-Lead screw & McMaster-Carr 99030A986; $3/8$ in--8 Stub Acme, two-start, $0.25$ in lead, $18$ in, 1018 steel. & \href{https://www.mcmaster.com/99030A986/}{99030A986} \\
+Lead screw & McMaster-Carr 99030A986; 3/8 in--8 Stub Acme, two-start, 0.25 in lead, 18 in length, 1018 low-carbon steel. & \href{https://www.mcmaster.com/99030A986/}{McMaster-Carr 99030A986} \\
 \addlinespace
-Lead nut & McMaster-Carr 1349K107; matching PET nut; dynamic thrust $350\ \mathrm{lbf}$. & \href{https://www.mcmaster.com/1349K107/}{1349K107} \\
+Lead nut & McMaster-Carr 1349K107; matching 3/8 in--8 Acme, two-start, 0.25 in lead, PET nut; catalog dynamic thrust rating 350 lbf. & \href{https://www.mcmaster.com/1349K107/}{McMaster-Carr 1349K107} \\
 \addlinespace
-Shaft coupler & $5/16$ in to $5/16$ in set-screw coupler; temporary fix or weld for the test bed. & \href{https://abra-electronics.com/robotics-actobotics-servocity/motion-en/couplers/set-screw-shaft-couplers/625126-5-16-to-5-16-set-screw-shaft-coupler-actobotics-clone.html}{Abra 625126} \\
+Shaft coupler & Abra Electronics / ServoCity listing supplied for a 5/16 in to 3/8 in set-screw coupler. The screw is intended to be welded or temporarily fixed for the test system. & \href{https://abra-electronics.com/robotics-actobotics-servocity/motion-en/couplers/set-screw-shaft-couplers/625126-5-16-to-5-16-set-screw-shaft-coupler-actobotics-clone.html}{Abra coupler listing} \\
 \bottomrule
 \end{tabularx}
-\caption{Selected scaled test-system components.}
+\caption{Selected scaled test-system components and supplier links.}
 \end{table}
 
 \subsection{Test Motor Selection Rationale}
 
-SF torque demand is $0.37\ \mathrm{N\,m}$ vs $0.3\ \mathrm{N\,m}$ rated
-($0.8\ \mathrm{N\,m}$ peak). Rated torque is tight; peak torque covers the SF
-case. Screw speeds sit inside the $4000\ \mathrm{RPM}$ max.
+The selected motor, lead screw, and nut combination was decided upon based
+on the given values and desired functionality. The motor's listed rated
+torque and speed provide a nominal comparison against the original
+calculated demand of $0.1475\ \mathrm{N\,m}$ at $1745.3\ \mathrm{RPM}$.
+The motor is listed at $0.3\ \mathrm{N\,m}$ rated torque and
+$3000\ \mathrm{RPM}$ rated speed, with a $0.8\ \mathrm{N\,m}$ maximum
+torque and $4000\ \mathrm{RPM}$ maximum speed. These values are above what
+is needed according to the calculation, which already includes a 2X safety
+factor. The motor torque--speed curve is shown below.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\textwidth]{nema-23-stepper-motor-specs.pdf}
-    \caption{Torque--speed curve, StepperOnline iSV57T-090.}
+    \includegraphics[width=0.85\textwidth]
+    {nema-23-stepper-motor-specs.pdf}
+    \caption{Manufacturer torque--speed curve for the selected
+    StepperOnline iSV57T-090 integrated servo motor.}
     \label{fig:test_motor_torque_curve}
 \end{figure}
 
+\subsection{Test Lead Screw, Nut, and Coupling Rationale}
+
+The selected screw and nut form a matching 3/8 in--8 Acme pair with a two-start
+thread and a nominal lead of 0.25 in per revolution. This corresponds to
+$6.35\ \mathrm{mm/rev}$. The PET nut is catalogued with a 350 lbf dynamic
+thrust rating.
+
+The supplied coupler is listed as 5/16 to 3/8. The intended manufacturing
+approach is to temporarily fix or weld the lead screw to the coupler, as a
+means of minimizing manufacturing costs associated with machining.
+
+\newpage
+
+% ------------------------------------------------------------
 \section{Selection Summary}
+% ------------------------------------------------------------
 
 \begin{table}[h!]
 \centering
 \begin{tabularx}{\textwidth}{@{}l Y Y@{}}
 \toprule
-\textbf{Item} & \textbf{Full-scale} & \textbf{Scaled test} \\
+\textbf{Item} & \textbf{Full-scale system} & \textbf{Scaled test system} \\
 \midrule
-Motor & iSV57T-180S, $180\ \mathrm{W}$, $0.6\ \mathrm{N\,m}$ rated & iSV57T-090, $90\ \mathrm{W}$, $0.3\ \mathrm{N\,m}$ rated \\
-Screw & 98980A973, $0.5$ in lead Acme & 99030A986, $0.25$ in lead Acme \\
-Nut & 1349K101 & 1349K107 \\
-Force (SF~$2$) & $169\ \mathrm{N}$ & $219\ \mathrm{N}$ \\
-Torque (SF~$2$) & $0.57\ \mathrm{N\,m}$ & $0.37\ \mathrm{N\,m}$ \\
-Screw speed (avg / peak) & $2871\ /\ 5743\ \mathrm{RPM}$ & $1641\ /\ 3282\ \mathrm{RPM}$ \\
-Control / power & Arduino STEP/DIR; $\sim 36\ \mathrm{V}$ pack & same \\
+Motor & iSV57T-180S, 180 W, 0.6 N\,m rated torque & iSV57T-090, 90 W, 0.3 N\,m rated torque \\
+Screw & 98980A973, 3/8 in--8, four-start Acme, 0.5 in lead & 99030A986, 3/8 in--8, two-start Acme, 0.25 in lead \\
+Nut & 1349K101, matching PET nut & 1349K107, matching PET nut \\
+Original design thrust & $99.652\ \mathrm{N}$ & $92.688\ \mathrm{N}$ \\
+Original calculated torque & $0.3172\ \mathrm{N\,m}$ & $0.1475\ \mathrm{N\,m}$ \\
+Original calculated speed & $2618.0\ \mathrm{RPM}$ & $1745.3\ \mathrm{RPM}$ \\
+Control / power & Arduino Uno STEP/DIR; external nominal 36 V battery & Arduino Uno STEP/DIR; external nominal 36 V battery \\
 \bottomrule
 \end{tabularx}
-\caption{Selected parts vs corrected sizing.}
+\caption{Summary of the selected components and original calculated requirements.}
 \end{table}
 
+The selected components meet the required specifications for the intended
+tasks, both for the full-scale system and the scaled testing model.
+
+\newpage
+
+%------------------------------------------------
 \begin{thebibliography}{00}
+%------------------------------------------------
 
 \bibitem{stepperonline180}
-STEPPERONLINE, ``NEMA 23 Integrated Easy Servo Motor 180W, iSV57T-180S.''
+STEPPERONLINE, ``NEMA 23 Integrated Easy Servo Motor
+180W, 3000 RPM, 0.6 N$\cdot$m, iSV57T-180S.''
+[Online]. Available:
 \url{https://www.stepperonline.ca/nema-23-integrated-easy-servo-motor-180w-3000rpm-0-6nm-84-98oz-in-20-50vdc-servo-motor-short-shaft-isv57t-180s.html}.
 [Accessed: Nov. 12, 2026].
 
 \bibitem{stepperonline090}
-STEPPERONLINE, ``NEMA 23 Integrated Easy Servo Motor 90W, iSV57T-090.''
+STEPPERONLINE, ``NEMA 23 Integrated Easy Servo Motor
+90W, 3000 RPM, 0.3 N$\cdot$m, iSV57T-090.''
+[Online]. Available:
 \url{https://www.stepperonline.ca/nema-23-integrated-easy-servo-motor-90w-3000rpm-0-3nm-42-49oz-in-20-50vdc-brushless-dc-servo-motor-isv57t-090.html}.
 [Accessed: Nov. 12, 2026].
 
+%------------------------------------------------
+% LEAD SCREWS, NUTS, AND COUPLINGS
+%------------------------------------------------
+
 \bibitem{full_leadscrew}
-McMaster-Carr, Part No.\ 98980A973. \url{https://www.mcmaster.com/98980A973/}.
+McMaster-Carr, ``Acme Lead Screw, Part No. 98980A973.''
+[Online]. Available:
+\url{https://www.mcmaster.com/98980A973/}.
+[Accessed: Nov. 12, 2026].
 
 \bibitem{full_leadnut}
-McMaster-Carr, Part No.\ 1349K101. \url{https://www.mcmaster.com/1349K101/}.
+McMaster-Carr, ``Acme Lead Screw Nut, Part No. 1349K101.''
+[Online]. Available:
+\url{https://www.mcmaster.com/1349K101/}.
+[Accessed: Nov. 12, 2026].
 
 \bibitem{full_coupler}
-Abra Electronics, Part No.\ 625182.
+Abra Electronics, ``1/4 in. to 8 mm Set Screw Shaft Coupler,
+Part No. 625182.''
+[Online]. Available:
 \url{https://abra-electronics.com/robotics-actobotics-servocity/motion-en/couplers/set-screw-shaft-couplers/625182-1-4-to-8mm-set-screw-shaft-coupler-actobotics-clone.html}.
+[Accessed: Nov. 12, 2026].
 
 \bibitem{test_leadscrew}
-McMaster-Carr, Part No.\ 99030A986. \url{https://www.mcmaster.com/99030A986/}.
+McMaster-Carr, ``Acme Lead Screw, Part No. 99030A986.''
+[Online]. Available:
+\url{https://www.mcmaster.com/99030A986/}.
+[Accessed: Nov. 12, 2026].
 
 \bibitem{test_leadnut}
-McMaster-Carr, Part No.\ 1349K107. \url{https://www.mcmaster.com/1349K107/}.
+McMaster-Carr, ``Acme Lead Screw Nut, Part No. 1349K107.''
+[Online]. Available:
+\url{https://www.mcmaster.com/1349K107/}.
+[Accessed: Nov. 12, 2026].
 
 \bibitem{test_coupler}
-Abra Electronics, Part No.\ 625126.
+Abra Electronics, ``5/16 in. to 5/16 in. Set Screw Shaft Coupler,
+Part No. 625126.''
+[Online]. Available:
 \url{https://abra-electronics.com/robotics-actobotics-servocity/motion-en/couplers/set-screw-shaft-couplers/625126-5-16-to-5-16-set-screw-shaft-coupler-actobotics-clone.html}.
+[Accessed: Nov. 12, 2026].
 
+\bibitem{uavvalues}
+``UAV Launch Actuator Values and Calculations,''
+unpublished project document, 2026.
+
+\bibitem{actuatorproscons}
+``Actuator Pros and Cons,''
+unpublished project document, 2026.
+
+%------------------------------------------------
 \end{thebibliography}
+%------------------------------------------------
 
 \end{document}
