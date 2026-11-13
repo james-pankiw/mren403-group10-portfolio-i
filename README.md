@@ -8,7 +8,7 @@ Supervisors: Jonathan Gammell, Melissa Greeff.
 | Folder | Contents |
 | --- | --- |
 | `requirements/` | Problem definition |
-| `decisions/` | Validation plan, roles, trades, meeting notes |
+| `decisions/` | Validation plan, roles |
 | `design/` | Subsystem design packages |
 | `code/` | Pitch sim and gate demo |
 | `experiments/` | Wave / pitch simulation write-ups |

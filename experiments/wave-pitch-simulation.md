@@ -12,9 +12,7 @@ Purpose: document the synthetic sea → pitch → forecast → gate work done be
 | Artifact | Path (this portfolio tree) | Role |
 | --- | --- | --- |
 | Pitch from rigid-hull wave slope | `experiments/pitch_from_wave_slope.py` | Amplitude model for assumed seas |
-| Slope note + table | `experiments/pitch-from-wave-slope.md` | Derivation and assumptions |
 | Slope figure | `figures/pitch-from-wave-slope.png` | One-sea pitch traces |
-| Slope results | `experiments/results.txt` | Printed amplitudes / rate-hold errors |
 | Pitch gate sim v2.1 | `code/pitch_sine_sim.py` | Two-cosine forecast scored vs rate hold |
 | Forecast figure v2.1 | `figures/pitch-forecast-v2.1.png` | Trace + false-allow / missed-window bars |
 | Interactive demo | `code/pitch_gate_demo.py` | Boat + scope + arm → allow → pause |
