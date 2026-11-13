@@ -9,13 +9,3 @@ MREN 403 Group 10. Technical ownership for design, prototype validation, and rep
 | **Ahrvin Raveendran** | Launch dynamics; energy delivery (bands/latch loads); actuation |
 | **Jamison McCulloch-Cop** | Pitch stabilization; **CAD modelling for the final (full-size) design** |
 
-## Shared (name when work starts)
-
-| Item | Default owners |
-| --- | --- |
-| Gripper / release linkage | Darcy (mech) + Ahrvin (loads) |
-| Trigger / arm–safe interlock | James (firmware) + Ahrvin (latch) |
-| Waterproofing / connectors | James |
-| Validation integration (sequence A→E) | Rotate / confirm |
-| Safety / e-stop / procedures | Confirm |
-| BOM / parts orders | Confirm |
