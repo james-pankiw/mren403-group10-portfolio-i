@@ -1,0 +1,252 @@
+\documentclass{article}
+\usepackage{hyperref}
+
+\begin{document}
+
+
+
+\section{Linear Actuator Options}
+
+
+This document covers the types of linear actuators considered for the front 
+oscillation and stabilization of the UAV launch system. Multiple types were considered, 
+ranging from prebuilt purchased models to possible self-configurable options. 
+The main factors considered are cost, linear force, linear speed, controllability and accuracy.
+A rotational force at the base of the launcher was also considered. 
+
+\subsection{Motor With Lead Screw or Ball Screw}
+
+
+A motor can be connected to a lead screw to transfer rotation motion and force into linear. 
+This can be done using differing motors that are explored in detail in section 2.
+The main two mechanisms to cause this conversion is a lead screw or a ball screw. 
+They both work on similar principles using a motor and gear box to rotate a screw forward and backwards. 
+
+The lead screw uses a threaded shaft and nut mechanism to convert the motion, a ball screw 
+instead uses a threaded shaft and ball nut to convert the motion. Ball screws in turn have significantly 
+lower friction loss. The advantages and disadvantages of both are shown below. 
+\subsubsection{ Lead Screw Advantages}
+
+\begin{itemize}
+    \item Low cost.
+    \item High mechanical advantage.
+    \item High linear force can be achieved.
+    \item Simple mechanical construction.
+    \item Relatively simple control system.
+    \item A lead screw can be self-locking depending on its lead angle.
+    \item A self-locking screw can help hold a vertical load without
+    continuously powering the motor.
+    \item Good for vertical loads to remain stationary. 
+    \item Less sensitive to contamination. 
+\end{itemize}
+
+\subsubsection{Lead Screw Disadvantages}
+
+\begin{itemize}
+    \item Lower efficiency than a ball screw.
+    \item Higher friction and heat generation.
+    \item Lower maximum speed than many ball-screw systems.
+    \item Backlash can reduce positioning accuracy.
+    \item Position feedback is required for accurate positioning.
+    \item High-speed operation can reduce service life.
+    \item Requires more motor torque for similar linear force 
+\end{itemize}
+
+
+\subsubsection{Ball Screw Advantages}
+
+\begin{itemize}
+    \item Higher efficiency than a lead screw.
+    \item Higher achievable linear speed.
+    \item Lower friction.
+    \item Lower heat generation.
+    \item High force capability.
+    \item Good positioning accuracy when combined with position feedback.
+    \item Suitable for rapid and repeated motion.
+\end{itemize}
+
+\subsubsection{Ball Screw Disadvantages}
+
+\begin{itemize}
+    \item Higher cost than a lead screw.
+    \item Ball screws can be back-driven by a vertical load.
+    \item A brake or continuous motor torque may be required to hold a
+    vertical load.
+    \item Requires lubrication and maintenance.
+    \item More mechanically complex than a lead screw.
+    \item Position feedback is required for accurate positioning.
+    \item Requires more careful alignment 
+\end{itemize}
+
+
+\section{Motors Paired with Lead/Ball Screw }
+
+While using a ball or lead screw a DC, Stepper or Servo motor can be used.
+This document will not be going into detail of the functionality or mechanics or each.
+Below is a list of their advantage or disadvantages, when connected to either lead or ball screws. 
+
+\subsection{Dc Motor}
+\subsubsection{ DC Advantages}
+
+\begin{itemize}
+    \item Relatively low cost.
+    \item Simple electrical control.
+    \item High rotation low speed.
+    \item Direction can be reversed
+\end{itemize}
+
+\subsubsection{DC Disadvantages}
+
+\begin{itemize}
+    \item Does not inherently know position, requires an encoder
+    \item Can overshoot position easily. 
+    \item Speed and torque affected by load
+    \item Lead-screw friction reduces efficiency.
+    \item Maximum linear speed is limited.
+    \item Holding position may require continuous motor torque or brake. 
+    \item may require gear box to achieve required torque. 
+\end{itemize}
+
+\subsection{Stepper Motor}
+\subsubsection{Stepper Advantages}
+
+\begin{itemize}
+    \item Relatively inexpensive  
+    \item Simple position commands 
+    \item Does not require encoder 
+    \item High holding torque 
+    \item Can be very smooth and command resolution 
+\end{itemize}
+
+
+\subsubsection{ Stepper Disadvantages}
+
+\begin{itemize}
+    \item Problematic if load exceeds available torque 
+    \item Open-loop can not confirm position 
+    \item Torque diminishes as rotation speed increases 
+    \item Can generate significant heat while stationary 
+    \item May require larger motor to achieve high-speed  
+    \item Brake or holding mechanism may be necessary for vertical load. 
+\end{itemize}
+
+\subsection{Servo Motor}
+\subsubsection{Servo Advantages}
+
+\begin{itemize}
+    \item Closed-loop position control.
+    \item High positioning accuracy and repeatability.
+    \item The controller can compensate for changes in load.
+    \item Good dynamic performance, rapid acceleration and deceleration. 
+    \item  Automatically corrects position errors. 
+    \item  Good torque capability over broad operation range. 
+\end{itemize}
+
+\subsubsection{Servo Disadvantages}
+
+\begin{itemize}
+    \item Higher cost than a basic DC motor system.
+    \item Requires a compatible servo drive/controller 
+    \item More complex setup. 
+    \item Can overshoot or oscillate without proper tuning. 
+    \item Holding torque can generate high heat. 
+    \item A mechanical brake may still be required to hold load without power. 
+\end{itemize}
+
+
+
+\section{Linear Motor}
+
+A linear motor produces linear motion directly through electromagnetic
+forces rather than converting rotary motion into linear motion through a
+screw or other mechanical transmission.
+
+\subsubsection{Advantages}
+
+\begin{itemize}
+    \item Direct generation of linear motion.
+    \item Very high achievable linear speed.
+    \item High acceleration and deceleration.
+    \item High positioning accuracy.
+    \item High repeatability.
+    \item No screw or gearbox backlash.
+    \item Low mechanical wear.
+    \item Excellent dynamic performance.
+\end{itemize}
+
+\subsection{}subsection{Disadvantages}
+
+\begin{itemize}
+    \item Significantly higher cost than conventional actuators.
+    \item Requires sophisticated control electronics.
+    \item Position feedback is typically required.
+    \item Does not inherently provide a self-locking mechanism.
+    \item A brake or continuous control force may be required for vertical
+    loads.
+    \item More difficult to integrate mechanically.
+    \item Generally unnecessary when extremely high speed is not required.
+\end{itemize}
+
+\section{Basic Prebuilt Linear Actuator}
+
+Basic prebuilt electric linear actuator were explored as a possible 
+option for the front rail actuation. However this was quickly shown 
+to be not feasible due to the slow linear speed of most models making it 
+nearly unusable for the required launch time frame. 
+
+\section{Rotation Torque Instead of Linear Force}
+
+In the application of the launch system a motor mounted at the point axis 
+of rotation is also a feasible solution. This inherently changes some of the 
+required specification need from the motors. Instead of linear speed it would be 
+angular speed as well as applied torque. The general torque would need to be significantly 
+greater due to the force applied at the base. 
+
+This option is still in considerations as it the motor may be larger and more expensive 
+but could be compensated with build gear box and no longer the need for a lead or ball screw 
+mechanism
+
+
+\section{Summary}
+
+In summary, there are multiple options for actuation of the front end of the UAV launch 
+system. The main leading option being a ball screw with a servo motor. 
+\newline
+\newline 
+The lead screw is likely 
+to cause complication with friction at high speeds. The Dc and Stepper motor although cheaper 
+will likely lead to lower position and control accuracy then needed for this application. 
+The linear motor although the best for force and controllability is largely too 
+expensive of an option for the budget of this project. The basic linear actuator 
+is incapable of getting to required speed to control the actuation properly.
+The base rotation with a motor and gearbox is a viable solution. \newline
+
+Final part selection Will be completed for both the full size UAV launcher and scaled down
+version in later documentation, using this documents information along with calculations taken from
+"UAV Launch Actuator Values". 
+
+\begin{thebibliography}{9}
+
+\bibitem{isel}
+isel USA, ``The Differences Between Lead and Ball Screw Actuators.''
+[Online]. Available: \url{https://www.isel-us.com/blog/the-differences-between-lead-and-ball-screw-actuators}.
+
+\bibitem{amc}
+Advanced Motion Controls, ``DC Servo Motor.''
+[Online]. Available: \url{https://www.a-m-c.com/dc-servo-motor/}.
+
+\bibitem{pihut}
+The Pi Hut, ``What's the Difference Between DC, Servo and Stepper Motors.''
+[Online]. Available: \url{https://thepihut.com/blogs/raspberry-pi-tutorials/whats-the-difference-between-dc-servo-amp-stepper-motors}.
+
+\bibitem{tecnotion}
+Tecnotion, ``What Is a Linear Motor?''
+[Online]. Available: \url{https://www.tecnotion.com/faq/what-is-a-linear-motor/}.
+
+\bibitem{acv}
+ACV Group, ``Understanding How Electric Actuators Work.''
+[Online]. Available: \url{https://acv-group.com/understanding-how-electric-actuators-work/}.
+
+\end{thebibliography}
+
+\end{document}
