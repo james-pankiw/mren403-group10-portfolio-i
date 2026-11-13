@@ -3,11 +3,11 @@
 UAV launch for MakeFlyEasy Fighter on Zodiac Nautic PRO 7.  
 Supervisors: Jonathan Gammell, Melissa Greeff.
 
-**Start here:** `requirements/` → `decisions/subsystem-validation.md` → `experiments/` → `code/`.
+**Start here:** `problem-definition.md` → `decisions/subsystem-validation.md` → `experiments/` → `code/`.
 
-| Folder | Contents |
+| Folder / file | Contents |
 | --- | --- |
-| `requirements/` | Problem definition |
+| `problem-definition.md` | Problem definition |
 | `decisions/` | Validation plan, roles |
 | `design/` | Subsystem design packages |
 | `code/` | Pitch sim and gate demo |

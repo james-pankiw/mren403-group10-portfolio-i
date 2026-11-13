@@ -17,7 +17,7 @@ Purpose: document the synthetic sea → pitch → forecast → gate work done be
 | Forecast figure v2.1 | `experiments/pitch-forecast-v2.1.png` | Trace + false-allow / missed-window bars |
 | Interactive demo | `code/pitch_gate_demo.py` | Boat + scope + arm → allow → pause |
 | Theory source | Sears (2026) Ch. 4 — time-only spectral mixture (two cosines) | Forecast form |
-| Boat length | Zodiac PRO 7 sheet → 6.90 m (`references/pro-7.md`) | Hull length in sim |
+| Boat length | Zodiac PRO 7 sheet → 6.90 m (`references/ficheProduit-PRO 7.pdf`) | Hull length in sim |
 
 Run from the **git repo root** (scripts still live there / are mirrored under `code/` and `experiments/`):
 
@@ -66,7 +66,7 @@ Each table row is its **own** assumed sea (not three waves added). Heights/perio
 
 - Deep-water dispersion only; no diffraction, surge, or boat dynamics.
 - 1 s wavelength ≪ hull → formula is a bound; a 7 m boat does not follow chop like a small craft.
-- Replacing overall length 6.90 m with hull length 5.97 m would cut chop pitch; we keep overall length and note the sensitivity in `references/pro-7.md`.
+- Replacing overall length 6.90 m with hull length 5.97 m would cut chop pitch; we keep overall length (sheet ±3%).
 
 ---
 

@@ -1,5 +1,5 @@
 # References
 
-Broader project source material (platform / boat sheets and extracts).
+Project source sheets: Fighter extract and PRO 7 product PDF.
 
-Subsystem-specific citations (patents, papers, trades) are listed in the design or experiment docs where they are used — they are not duplicated here.
+Subsystem-specific citations are listed in the docs where they are used.

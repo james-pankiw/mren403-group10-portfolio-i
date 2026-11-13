@@ -1,7 +1,7 @@
 # Problem definition
 
 MREN 403 Group 10 · James Pankiw (portfolio write-up) · 2026-11-12  
-Sources: client brief; proposal feedback (2026-10-27); supervisor meetings 2026-09-23, 2026-10-08, 2026-10-29, 2026-11-12; `docs/fighter-hand-throw.md`; `docs/pro-7.md`.
+Sources: client brief; proposal feedback (2026-10-27); supervisor meetings 2026-09-23, 2026-10-08, 2026-10-29, 2026-11-12; `references/fighter-hand-throw.md`; `references/ficheProduit-PRO 7.pdf`.
 
 ## Client and need
 
