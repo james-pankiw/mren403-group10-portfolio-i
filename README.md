@@ -13,7 +13,6 @@ Supervisors: Jonathan Gammell, Melissa Greeff.
 | `design/` | Subsystem design packages |
 | `code/` | Pitch sim and gate demo |
 | `experiments/` | Wave / pitch simulation write-ups |
-| `data/` | Raw logs when available |
 | `references/` | Fighter and PRO 7 sources |
 | `figures/` | Key plots |
 | `deliverables/` | Proposal PDF |
