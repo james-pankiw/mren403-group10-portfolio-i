@@ -76,16 +76,14 @@ Full-size rail material is a **separate** decision (Darcy currently argues CNC *
 | **Status** | After 1–5 are stable; date any slip past PDR |
 | **Edge cases** | Actuator saturation at crest; error outside 0–10° |
 
-## Not prototype-tested
+## Wet operation
 
-| Item | Plan |
-| --- | --- |
-| **Boat mount (PRO 7)** | Full-size CAD / design only (Jamison). No prototype mount validation. |
-| **Wet operation** | Waterproof the prototype with a chosen style; treat the wave-pool day as a transient check that gear still runs. Not a separate spray campaign. |
+Waterproof the prototype with a chosen style. Treat the wave-pool day as a check that gear still runs after a wet environment; skip a separate spray campaign for Portfolio I.
 
-## What a pass does not claim
+## Pass limits
+
+A prototype pass still leaves open:
 
 - Zodiac / PRO 7 trial  
 - Fighter exit speed or full launch energy  
 - Final rail material from the strut bed  
-- Prototype proof of the boat mount  

@@ -4,7 +4,7 @@ Sensing, forecast, allow/refuse for launch on a pitching boat.
 
 ## Sears framing
 
-Thomas Sears’s work on wave-driven boat motion (Queen’s / Marshall lab) is the research backdrop for the gate. Chapter 4 of his thesis gives a short-horizon pitch forecast as a **time-only spectral mixture** — in our sims, two cosines fitted to recent pitch — which is enough to beat a naive rate-hold over a ~0.3 s rail window. We use that form for algorithm design; we do not claim Sears’s field logs or his full wave-modelling code.
+Thomas Sears’s work on wave-driven boat motion (Queen’s / Marshall lab) sits behind the gate design. Chapter 4 of his thesis gives a short-horizon pitch forecast as a **time-only spectral mixture**. Our sims use that as two cosines fitted to recent pitch, which beats a naive rate-hold over a ~0.3 s rail window. Field IMU logs and Sears’s full wave-modelling code are still separate from what we run here.
 
 ## Artifacts
 
