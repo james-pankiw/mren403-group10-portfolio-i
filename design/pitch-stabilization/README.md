@@ -1,11 +1,14 @@
 # Pitch stabilization
 
-Actuator sizing and trades for the rail elevation axis.
+Actuator sizing and part selection for the rail elevation axis.
 
 | File | Role |
 | --- | --- |
-| `actuator_force_requirements.tex` | Force / stroke / motor equations (source) |
-| `actuator_part_comparison.tex` | Lead/ball screw and motor trade (source) |
-| `actuatorValues.py` | Numeric evaluation of the sizing model |
+| `actuator_force_requirements.tex` | Force / stroke / motor equations |
+| `actuator_part_comparison.tex` | Lead/ball screw and motor trade |
+| `actuator_part_selection.tex` | Selected motors, screws, nuts, couplers |
+| `actuatorValues.py` | Numeric sizing model |
+| `ISV57T-180S_Torque_Speed_Curve.pdf` | Full-scale motor curve |
+| `nema-23-stepper-motor-specs.pdf` | Test motor curve |
 
-**Note:** An older script used payload inertia about the wrong pivot and `r_m2 = L2/2`. The `.tex` and `actuatorValues.py` here use parallel-axis inertia and an outboard `r_m2`. Re-run the script before ordering parts. Final commercial part selection is still TBD.
+Uses outboard `$r_{m_2}$` and parallel-axis inertia. Re-run `actuatorValues.py` before ordering.
