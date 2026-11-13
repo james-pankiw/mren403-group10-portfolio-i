@@ -13,26 +13,18 @@ Purpose: document the synthetic sea → pitch → forecast → gate work done be
 | --- | --- | --- |
 | Pitch from rigid-hull wave slope | `experiments/pitch_from_wave_slope.py` | Amplitude model for assumed seas |
 | Slope figure | `experiments/pitch-from-wave-slope.png` | One-sea pitch traces |
-| Pitch gate sim v2.1 | `code/pitch_sine_sim.py` | Two-cosine forecast scored vs rate hold |
+| Pitch gate sim v2.1 | `design/pitch-gate/pitch_sine_sim.py` | Two-cosine forecast scored vs rate hold |
 | Forecast figure v2.1 | `experiments/pitch-forecast-v2.1.png` | Trace + false-allow / missed-window bars |
-| Interactive demo | `code/pitch_gate_demo.py` | Boat + scope + arm → allow → pause |
+| Interactive demo | `design/pitch-gate/pitch_gate_demo.py` | Boat + scope + arm → allow → pause |
 | Theory source | Sears (2026) Ch. 4 — time-only spectral mixture (two cosines) | Forecast form |
 | Boat length | Zodiac PRO 7 sheet → 6.90 m (`references/ficheProduit-PRO 7.pdf`) | Hull length in sim |
 
-Run from the **git repo root** (scripts still live there / are mirrored under `code/` and `experiments/`):
+From repo root:
 
 ```text
-python docs/portfolio/preliminary-simulations/pitch_from_wave_slope.py
-python software/pitch_sine_sim.py
-python software/pitch_gate_demo.py
-```
-
-Or from copies in this tree:
-
-```text
-python portfolio/experiments/pitch_from_wave_slope.py
-python portfolio/code/pitch_sine_sim.py
-python portfolio/code/pitch_gate_demo.py
+python experiments/pitch_from_wave_slope.py
+python design/pitch-gate/pitch_sine_sim.py
+python design/pitch-gate/pitch_gate_demo.py
 ```
 
 Demo needs a display / Tk (`python3-tk` on Linux). Sim plots use Agg and write PNGs.

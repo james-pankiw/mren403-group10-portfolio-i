@@ -8,9 +8,12 @@ Thomas Sears’s work on wave-driven boat motion (Queen’s / Marshall lab) sits
 
 ## Artifacts
 
-- Write-up: `experiments/wave-pitch-simulation.md`
-- Code: `code/pitch_sine_sim.py`, `code/pitch_gate_demo.py`
-- Figures: `experiments/pitch-forecast-v2.1.png`
+| File | Role |
+| --- | --- |
+| `pitch_sine_sim.py` | Two-cosine forecast vs rate hold |
+| `pitch_gate_demo.py` | Interactive boat / scope / arm demo |
+| `../../experiments/wave-pitch-simulation.md` | Write-up |
+| `../../experiments/pitch-forecast-v2.1.png` | Forecast figure |
 
 ## Reference
 

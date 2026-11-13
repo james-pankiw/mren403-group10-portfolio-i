@@ -95,7 +95,7 @@ Strut + trolleys are a cheap prototype bed. They do **not** validate final rail 
 | **Lead**                | James                                                                                                                           |
 | **Full-size job**       | Log pitch; forecast; allow launch only inside a safe window                                                                     |
 | **Prototype / sim**     | Two-cosine forecast; rocking rig (manual input) or small wave pool                                                              |
-| **Sim evidence so far** | `code/pitch_sine_sim.py`, `code/pitch_gate_demo.py` — see [wave-pitch-simulation.md](../experiments/wave-pitch-simulation.md) |
+| **Sim evidence so far** | `design/pitch-gate/pitch_sine_sim.py`, `design/pitch-gate/pitch_gate_demo.py` — see [wave-pitch-simulation.md](../experiments/wave-pitch-simulation.md) |
 | **What we test**        | False allows; gated launch into C/D hardware on real motion                                                                     |
 | **Pass**                | Refuse on bad fit / dropout, later testing with wavepool launch                                                                 |
 | **Informs**             | Predictor, prior length, margin inside 0–10°, sample rate                                                                       |
