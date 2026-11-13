@@ -12,10 +12,6 @@ For this launcher we use that same logic:
 2. A brake stops the carriage at the end of travel.
 3. Arm inertia opens the grippers and clears the airframe; the brake also takes the stop loads into the carriage structure rather than yanking the fuselage.
 
-## What we do not copy
-
-The patent is not a pitch gate. It does not give spring rates, arm angles, or loads to reuse. Geometry, pads, and clearances for the Fighter / football fixture are ours to size and test (validation test B).
-
 ## Prototype note
 
 Current bed is strut + trolleys with an Insitu-style gripper and a football as the fuselage stand-in. That validates hold / release timing and clearances, not the final carriage bearing or rail material.
