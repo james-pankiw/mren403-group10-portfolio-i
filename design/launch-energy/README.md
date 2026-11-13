@@ -1,6 +1,8 @@
 # Launch energy
 
-Band sizing and choice:
+Band sizing and selection for the rail launch axis.
 
-- Calculations: `calculations/Launcher Band Calculations.docx`
-- Decision: `decisions/Launcher Band Decision.docx`
+| File | Role |
+| --- | --- |
+| `Launcher Band Calculations.docx` | Energy / band sizing |
+| `Launcher Band Decision.docx` | Band choice and rationale |

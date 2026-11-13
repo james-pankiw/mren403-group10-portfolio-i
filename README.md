@@ -9,7 +9,6 @@ Supervisors: Jonathan Gammell, Melissa Greeff.
 | --- | --- |
 | `requirements/` | Problem definition |
 | `decisions/` | Validation plan, roles, trades, meeting notes |
-| `calculations/` | Band / energy sizing calculations |
 | `design/` | Subsystem design packages |
 | `code/` | Pitch sim and gate demo |
 | `experiments/` | Wave / pitch simulation write-ups |
