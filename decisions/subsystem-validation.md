@@ -1,89 +1,124 @@
 # Subsystem validation plan
 
-MREN 403 Group 10 · Portfolio I · 2026-11-12
+MREN 403 Group 10 · Portfolio I · Updated after supervisor meeting 2026-11-12  
+Detailed ownership: `decisions/group-leads.md`
 
-**Rule:** Design the full-size Fighter launcher. Use the $500 prototype to pass/fail design decisions. A prototype pass is not a Zodiac trial and not proof of full exit speed or launch energy.
+## Rule
+
+Design the full-size Fighter launcher. Use the $500 prototype to **pass/fail design decisions**. A prototype pass is **not** a Zodiac trial and **not** proof of full exit speed / launch energy.
 
 ## Prototype baseline
 
-| Item | Choice |
-| --- | --- |
-| Rails / carriage bed | 2× Sasco strut + trolleys — **prototype stand-in only** (see Darcy, `design/rails-structure/Prototype Rails.docx`) |
-| Force-delivery mass | ~5 kg bean bag |
-| Fuselage stand-in | Football (or similar) |
+| Item                    | Choice                                   |
+| ----------------------- | ---------------------------------------- |
+| Rails                   | 2× Sasco / Atkore strut                  |
+| Carriage                | Atkore strut trolleys                    |
+| Force-delivery mass     | ~5 kg bean bag                           |
+| Fuselage stand-in       | Football (or similar)                    |
 | Launch computer (first) | Raspberry Pi (command → release latency) |
-| Motion proxy | Small wave pool |
+| Motion proxy            | Small wave pool                          |
 
-Full-size rail material is a **separate** decision (Darcy currently argues CNC **stainless** in `design/rails-structure/Full Sized Rail.docx`). Strut tests do not select that material.
+Strut + trolleys are a cheap prototype bed. They do **not** validate final rail material or the final carriage bearing choice.
 
-## Prototype-tested subsystems
+## Subsystems
 
-| # | Subsystem | Lead | Test | Pass | Informs final design |
-| --- | --- | --- | --- | --- | --- |
-| 1 | Structure | Darcy | Launch on strut bed; watch stability | No collapse / excessive flex / loss of alignment | Bracing, span, load path in CAD |
-| 2 | Carriage & release | Darcy + Ahrvin | Football hold; release at brake | Hold through accel; arms clear | Linkage, pads, brake clearances |
-| 3 | Launch energy | Ahrvin | Bands launch ~5 kg to stop | Repeatable delivery; brake absorbs | Band sizing method; brake energy |
-| 4 | Trigger & latency | James + Ahrvin | Pi command → release; arm/safe | Latency ≪ window; no disarm release | Pi vs MCU; interlock; latch |
-| 5 | Pitch gate | James | IMU + forecast; gated launch on pool | Fewer false allows than rate hold | Predictor, margin, sample rate |
-| 6 | Pitch stabilization | Jamison | Actuator holds elevation on moving base | Stays in 0–10°; error logged | Actuator force/speed; mount; CAD |
+| ID  | Subsystem          | Lead           | Prototype test                                       | Pass                                                                                          | Locks in final design                                       |
+| --- | ------------------ | -------------- | ---------------------------------------------------- | --------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| A   | Rail / structure   | Darcy          | Launch on strut bed; watch frame/rail stability      | Structure stays stable under launch loads (no collapse, excessive flex, or loss of alignment) | Mechanical layout / bracing / load path                     |
+| B   | Carriage + gripper | Darcy + James  | Football hold / release at brake                     | Hold through accel; arms clear                                                                | Linkage, pads, clearances                                   |
+| C   | Launch energy      | Ahrvin         | Bands launch ~5 kg to stop                           | Repeatable; brake absorbs                                                                     | Band sizing method; brake energy                            |
+| D   | Launch trigger     | James + Ahrvin | Pi latency; arm/safe                                 | Latency ≪ window; no disarm release                                                           | Time from command to launch                                 |
+| E   | Pitch gate         | James          | IMU + forecast on wave pool                          | Fewer false allows than rate hold                                                             | Predictor, margin (imu noise), sample rate                  |
+| F   | Pitch control      | Jamison        | Actuator holds 0–10° on moving base                  | Elevation in band; error logged                                                               | Actuator force/speed; mount                                 |
+| G   | Boat mount         | Jamison (CAD)  | **Not prototype-tested**                             | —                                                                                             | Full-size PRO 7 interface stays design/CAD only             |
+| H   | Environment        | James          | Opportunistic check in wave pool once the rig is wet | Electronics still run after pool use                                                          | Prototype waterproofing style; feeds final marine packaging |
 
-**Build order:** 1 → 3 → 4 → 2 → 5 → 6.
+**Build order:** A → C → D → B → E → F. H is incidental to the wave-pool run, not a separate campaign. G is design-only.
 
-### 1. Structure
+## A. Rail / structure
 
-| | |
-| --- | --- |
-| **What we test** | Mechanical stability during launch on the prototype bed |
-| **What we do not test** | Final rail material; keeping strut/trolleys on the Fighter design |
-| **Edge cases** | Weak-axis flex; shake at brake; mount looseness |
+|                         |                                                                                                       |
+| ----------------------- | ----------------------------------------------------------------------------------------------------- |
+| **Lead**                | Darcy                                                                                                 |
+| **Full-size job**       | Straight, stiff rail/frame that fits the PRO 7 and takes launch and brake loads                       |
+| **Prototype hardware**  | Sasco strut + trolleys                                                                                |
+| **What we test**        | Mechanical stability of the structure during launch (deflection, shake, alignment under ~5 kg launch) |
+| **What we do not test** | Final rail material; suitability of strut or trolleys for the Fighter launcher                        |
+| **Pass**                | Frame/rail holds alignment through launch and brake; no structural failure or unsafe motion           |
+| **Informs**             | Bracing, span, mount stiffness, and load path in full-size CAD                                        |
+| **Edge cases**          | Weak-axis flex; shake at brake; mount looseness                                                       |
 
-### 2. Carriage & release
+## B. Carriage + gripper
 
-| | |
-| --- | --- |
-| **What we test** | Hold through acceleration; Insitu-style clear at stop |
-| **What we do not test** | Final bearing hardware; Fighter airframe strength |
-| **Edge cases** | Soft stand-in shifts; arms fail to clear; bind on stop |
+|                         |                                                                                 |
+| ----------------------- | ------------------------------------------------------------------------------- |
+| **Lead**                | Darcy, James                                                                    |
+| **Full-size job**       | Hold the Fighter; release cleanly at stroke end without wing or fuselage damage |
+| **Prototype hardware**  | Carriage on prototype trolleys; football (or similar) as fuselage stand-in      |
+| **What we test**        | Hold through acceleration; release at the brake stop; arms clear the body       |
+| **What we do not test** | Final trolley/bearing hardware; Fighter airframe strength                       |
+| **Pass**                | Stand-in stays seated until stop; arms swing clear;                             |
+| **Informs**             | Linkage geometry, pad locations, brake placement                                |
+| **Edge cases**          | Soft body shifts in the jaws; arms fail to clear at speed; bind on the stop     |
 
-### 3. Launch energy
+## C. Launch energy
 
-| | |
-| --- | --- |
-| **What we test** | Force delivery; repeatable travel to brake |
-| **What we do not test** | Fighter exit speed or full launch energy |
-| **Edge cases** | Partial band failure; overspeed into stop; abort with energy stored |
+|                         |                                                                                                                        |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| **Lead**                | Ahrvin                                                                                                                 |
+| **Full-size job**       | Store and deliver launch energy; aircraft at full throttle before release                                              |
+| **Prototype hardware**  | Scaled elastic/bands; ~5 kg bean bag on the carriage                                                                   |
+| **What we test**        | Force delivery to the carriage; repeatable travel to the brake; brake absorbs the stop                                 |
+| **What we do not test** | Fighter exit speed or full-size launch energy                                                                          |
+| **Pass**                | Mass reaches the stop repeatably; structure and brake survive; energy delivery is consistent enough to size the method |
+| **Informs**             | Band sizing method; brake energy capacity; loads into the structure (feeds A and B)                                    |
+| **Edge cases**          | Partial band failure; overspeed into the stop                                                                          |
 
-### 4. Trigger & latency
+*Mass justification for ~5 kg is still an open write-up (supervisor ask 2026-11-12).*
 
-| | |
-| --- | --- |
-| **What we test** | Command→release latency; arm/disarm/abort |
-| **Edge cases** | Latency eats the pitch window; glitch release |
+## D. Launch trigger
 
-### 5. Pitch gate
+|                        |                                                                                |
+| ---------------------- | ------------------------------------------------------------------------------ |
+| **Lead**               | James (firmware / Pi), Ahrvin (latch hardware)                                 |
+| **Full-size job**      | Release only when armed and the gate allows; hold against full-throttle thrust |
+| **Prototype hardware** | Raspberry Pi command path; latch/release on the prototype                      |
+| **What we test**       | Command → launch latency and jitter; arm / disarm / abort                      |
+| **Pass**               | Latency known and small vs ~0.3–0.5 s window; no release when disarmed         |
+| **Informs**            | Interlock logic; latch rating; wave prediction horizon                         |
+| **Edge cases**         | Latency the safe pitch window; release on glitch                               |
 
-| | |
-| --- | --- |
-| **Sim so far** | `code/pitch_sine_sim.py`, `code/pitch_gate_demo.py`; write-up in `experiments/wave-pitch-simulation.md` |
-| **Hardware next** | Wave pool / rocking motion; score false allows |
-| **Edge cases** | Crest / high rate; bad fit; IMU dropout |
+## E. Pitch gate
 
-### 6. Pitch stabilization
+|                         |                                                                                                                                 |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| **Lead**                | James                                                                                                                           |
+| **Full-size job**       | Log pitch; forecast; allow launch only inside a safe window                                                                     |
+| **Prototype / sim**     | Two-cosine forecast; rocking rig (manual input) or small wave pool                                                              |
+| **Sim evidence so far** | `code/pitch_sine_sim.py`, `code/pitch_gate_demo.py` — see [wave-pitch-simulation.md](../experiments/wave-pitch-simulation.md) |
+| **What we test**        | False allows; gated launch into C/D hardware on real motion                                                                     |
+| **Pass**                | Refuse on bad fit / dropout, later testing with wavepool launch                                                                 |
+| **Informs**             | Predictor, prior length, margin inside 0–10°, sample rate                                                                       |
+| **Edge cases**          | Crest / high rate; unmodelled swell; IMU gap                                                                                    |
 
-| | |
-| --- | --- |
-| **What we test** | Hold set elevation while base pitches |
-| **Status** | After 1–5 are stable; date any slip past PDR |
-| **Edge cases** | Actuator saturation at crest; error outside 0–10° |
+## F. Pitch control
 
-## Wet operation
+|                         |                                                                                                                  |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| **Lead**                | Jamison                                                                                                          |
+| **Full-size job**       | Hold rail elevation in the launch band during the launch window                                                  |
+| **Prototype hardware**  | Front-rail linear actuator on a moving base (after A–E are stable)                                               |
+| **What we test**        | Hold a set elevation while the base pitches; log angle error vs time                                             |
+| **What we do not test** | Full marine weather envelope on day one; final actuator brand until force/speed are sized                        |
+| **Pass**                | Elevation stays inside 0–10° for the window; error logged                                                        |
+| **Informs**             | Required angular rate / travel (Δθ, time); actuator force and speed; mount stiffness; CAD of the pitch axis      |
+| **Edge cases**          | Crest rates that saturate the actuator; hold error outside the band; coupling into structure vibration (dampers) |
+| **Status**              | Later than gate + carriage                                                                                       |
 
-Waterproof the prototype with a chosen style. Treat the wave-pool day as a check that gear still runs after a wet environment; skip a separate spray campaign for Portfolio I.
+## G. Boat mount — not tested on the prototype
 
-## Pass limits
+Full-size PRO 7 mount is **design/CAD only** (Jamison). No prototype boat-mount validation this term.
 
-A prototype pass still leaves open:
+## H. Environment
 
-- Zodiac / PRO 7 trial  
-- Fighter exit speed or full launch energy  
-- Final rail material from the strut bed  
+When the rig goes in the wave pool, we waterproof the prototype electronics with a chosen style (enclosure / sealing approach TBD) and treat that pool day as a transient check: gear still runs wet. Final marine packaging and sea-spray maintenance stay on the full-size design record.
