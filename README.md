@@ -11,7 +11,6 @@ Supervisors: Jonathan Gammell, Melissa Greeff.
 | `decisions/` | Validation plan, roles |
 | `design/` | Subsystem design packages |
 | `code/` | Pitch sim and gate demo |
-| `experiments/` | Wave / pitch simulation write-ups |
+| `experiments/` | Wave / pitch simulation write-ups and plots |
 | `references/` | Fighter and PRO 7 sources |
-| `figures/` | Key plots |
 | `deliverables/` | Proposal PDF |

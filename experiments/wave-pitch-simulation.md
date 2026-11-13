@@ -12,9 +12,9 @@ Purpose: document the synthetic sea → pitch → forecast → gate work done be
 | Artifact | Path (this portfolio tree) | Role |
 | --- | --- | --- |
 | Pitch from rigid-hull wave slope | `experiments/pitch_from_wave_slope.py` | Amplitude model for assumed seas |
-| Slope figure | `figures/pitch-from-wave-slope.png` | One-sea pitch traces |
+| Slope figure | `experiments/pitch-from-wave-slope.png` | One-sea pitch traces |
 | Pitch gate sim v2.1 | `code/pitch_sine_sim.py` | Two-cosine forecast scored vs rate hold |
-| Forecast figure v2.1 | `figures/pitch-forecast-v2.1.png` | Trace + false-allow / missed-window bars |
+| Forecast figure v2.1 | `experiments/pitch-forecast-v2.1.png` | Trace + false-allow / missed-window bars |
 | Interactive demo | `code/pitch_gate_demo.py` | Boat + scope + arm → allow → pause |
 | Theory source | Sears (2026) Ch. 4 — time-only spectral mixture (two cosines) | Forecast form |
 | Boat length | Zodiac PRO 7 sheet → 6.90 m (`references/pro-7.md`) | Hull length in sim |
