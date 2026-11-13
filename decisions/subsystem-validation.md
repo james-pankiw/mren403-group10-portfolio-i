@@ -8,13 +8,13 @@ MREN 403 Group 10 · Portfolio I · 2026-11-12
 
 | Item | Choice |
 | --- | --- |
-| Rails / carriage bed | 2× Sasco strut + trolleys — **prototype stand-in only** (see Darcy, `design/mechanical/Prototype Rails.docx`) |
+| Rails / carriage bed | 2× Sasco strut + trolleys — **prototype stand-in only** (see Darcy, `design/rails-structure/Prototype Rails.docx`) |
 | Force-delivery mass | ~5 kg bean bag |
 | Fuselage stand-in | Football (or similar) |
 | Launch computer (first) | Raspberry Pi (command → release latency) |
 | Motion proxy | Small wave pool |
 
-Full-size rail material is a **separate** decision (Darcy currently argues CNC **stainless** in `design/mechanical/Full Sized Rail.docx`). Strut tests do not select that material.
+Full-size rail material is a **separate** decision (Darcy currently argues CNC **stainless** in `design/rails-structure/Full Sized Rail.docx`). Strut tests do not select that material.
 
 ## Prototype-tested subsystems
 

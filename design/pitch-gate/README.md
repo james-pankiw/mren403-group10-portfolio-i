@@ -1,7 +1,17 @@
 # Pitch gate
 
-Sensing, forecast, allow/refuse.
+Sensing, forecast, allow/refuse for launch on a pitching boat.
+
+## Sears framing
+
+Thomas Sears’s work on wave-driven boat motion (Queen’s / Marshall lab) is the research backdrop for the gate. Chapter 4 of his thesis gives a short-horizon pitch forecast as a **time-only spectral mixture** — in our sims, two cosines fitted to recent pitch — which is enough to beat a naive rate-hold over a ~0.3 s rail window. We use that form for algorithm design; we do not claim Sears’s field logs or his full wave-modelling code.
+
+## Artifacts
 
 - Write-up: `experiments/wave-pitch-simulation.md`
 - Code: `code/pitch_sine_sim.py`, `code/pitch_gate_demo.py`
 - Figures: `figures/pitch-forecast-v2.1.png`
+
+## Reference
+
+Sears, T. M. C. (2026). *Spectral Analysis for Robotic Spatiotemporal Mapping* (Ph.D. thesis, Chapter 4). Queen’s University. https://queensu.scholaris.ca/items/ed41fb5e-f0e1-4573-935c-7e94e8f48fed
