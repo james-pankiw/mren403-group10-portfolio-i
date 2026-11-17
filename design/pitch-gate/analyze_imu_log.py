@@ -1,63 +1,51 @@
-"""Summarize an ICG-20660L CSV log: rate, noise, drift."""
-
-from __future__ import annotations
-
-import argparse
+﻿"""Summarize an ICG-20660L CSV log: rate, noise, drift."""
 import csv
 import math
 import statistics
-from pathlib import Path
+import sys
 
-
-def load(path: Path) -> list[dict[str, float | str]]:
-    rows = []
-    with path.open(newline="") as f:
-        for r in csv.DictReader(f):
-            rows.append(
-                {
-                    "t_s": float(r["t_s"]),
-                    "gy_dps": float(r["gy_dps"]),
-                    "pitch_accel_deg": float(r["pitch_accel_deg"]),
-                    "source": r.get("source", ""),
-                }
-            )
-    return rows
-
-
-def rms(xs: list[float]) -> float:
+def rms(xs):
     return math.sqrt(sum(x * x for x in xs) / max(1, len(xs)))
 
-
-def main() -> None:
-    p = argparse.ArgumentParser()
-    p.add_argument("csv", type=Path)
-    args = p.parse_args()
-    rows = load(args.csv)
-    if len(rows) < 2:
-        raise SystemExit("need ≥2 samples")
-
-    t = [r["t_s"] for r in rows]
-    pitch = [r["pitch_accel_deg"] for r in rows]
-    gy = [r["gy_dps"] for r in rows]
+def main(argv):
+    if len(argv) != 2:
+        sys.stderr.write("usage: analyze_imu_log.py <csv>\n")
+        return 2
+    path = argv[1]
+    sys.stdout.write("reading %s ...\n" % path)
+    sys.stdout.flush()
+    t = []
+    pitch = []
+    gy = []
+    source = ""
+    with open(path, "r") as f:
+        reader = csv.DictReader(f)
+        for r in reader:
+            t.append(float(r["t_s"]))
+            pitch.append(float(r["pitch_accel_deg"]))
+            gy.append(float(r["gy_dps"]))
+            if not source:
+                source = r.get("source", "")
+    if len(t) < 2:
+        sys.stderr.write("need >=2 samples\n")
+        return 1
     dt = [t[i + 1] - t[i] for i in range(len(t) - 1)]
     hz = 1.0 / statistics.mean(dt)
-    pitch0 = [x - statistics.mean(pitch) for x in pitch]
-    gy0 = [x - statistics.mean(gy) for x in gy]
-    # simple linear drift on pitch (deg/s)
-    n = len(t)
-    t_mean = statistics.mean(t)
     p_mean = statistics.mean(pitch)
-    num = sum((t[i] - t_mean) * (pitch[i] - p_mean) for i in range(n))
-    den = sum((t[i] - t_mean) ** 2 for i in range(n))
+    pitch0 = [x - p_mean for x in pitch]
+    gy_mean = statistics.mean(gy)
+    gy0 = [x - gy_mean for x in gy]
+    t_mean = statistics.mean(t)
+    num = sum((t[i] - t_mean) * (pitch[i] - p_mean) for i in range(len(t)))
+    den = sum((ti - t_mean) ** 2 for ti in t)
     drift = num / den if den else 0.0
-
-    print(f"file: {args.csv}")
-    print(f"source: {rows[0]['source']}")
-    print(f"samples: {n}  duration: {t[-1] - t[0]:.2f} s  mean rate: {hz:.1f} Hz")
-    print(f"pitch_accel: mean={p_mean:.4f}°  σ={statistics.pstdev(pitch):.4f}°  rms_ac={rms(pitch0):.4f}°")
-    print(f"gyro_y: mean={statistics.mean(gy):.4f} dps  σ={statistics.pstdev(gy):.4f} dps  rms_ac={rms(gy0):.4f} dps")
-    print(f"pitch linear drift ≈ {drift:.5f} °/s ({drift * 60:.3f} °/min)")
-
+    print("file: %s" % path)
+    print("source: %s" % source)
+    print("samples: %d  duration: %.2f s  mean rate: %.1f Hz" % (len(t), t[-1] - t[0], hz))
+    print("pitch_accel: mean=%.4f deg  sigma=%.4f deg  rms_ac=%.4f deg" % (p_mean, statistics.pstdev(pitch), rms(pitch0)))
+    print("gyro_y: mean=%.4f dps  sigma=%.4f dps  rms_ac=%.4f dps" % (gy_mean, statistics.pstdev(gy), rms(gy0)))
+    print("pitch linear drift ~= %.5f deg/s (%.3f deg/min)" % (drift, drift * 60))
+    return 0
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main(sys.argv))
